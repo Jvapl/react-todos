@@ -1,26 +1,78 @@
+:root{
+  --PrimaryColorBackGround: #FDFBF7;
+  --TodoColorBackGround: #EFECE5;
+  --BasicWhite: #FFFFFF;
+  --ColoBase: #D1C7BD;
+  --ErrorColorBorder: #FF7A78;
+  --ErrorBackGroundColor: #FFECEC;
+}
+
 body {
-  margin: 0;
-  color: #fff;
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-image: linear-gradient(to bottom, #020917, #101725);
+  background-color: var(--PrimaryColorBackGround);
 }
 
-.content {
+p {
+  color: #787878;
+}
+
+.React-Todo {
+  background-color: var(--TodoColorBackGround);
+  margin: 3.3rem 10.3rem;
+  padding: 3.3rem;
   display: flex;
-  min-height: 100vh;
-  line-height: 1.1;
-  text-align: center;
   flex-direction: column;
-  justify-content: center;
+  gap: 1.4rem;
 }
 
-.content h1 {
-  font-size: 3.6rem;
-  font-weight: 700;
+.CSSBase {
+  background-color: var(--BasicWhite);
+  border: 0.11rem solid var(--ColoBase);
+  border-radius: 0.5rem;
 }
 
-.content p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.5;
+.padding{
+  padding: 1.3rem 3.2rem;
+}
+
+/* --- ERROR MSG ---*/
+
+#ErrorMSG {
+  border: 0.1rem solid var(--ErrorColorBorder);
+  background-color: var(--ErrorBackGroundColor);
+  color: #E21F1C;
+  padding: 1rem 3rem;
+}
+
+#ErrorMSG p {
+  color: #E21F1C;
+}
+
+/* --- Task --- */
+
+#taskInformations{
+  display: flex;
+  justify-content: space-between;
+  gap: 3.2rem;
+}
+
+.Task {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* --- Buttons --- */
+
+.TaskButtons{
+  display: flex;
+  gap: 20px;
+
+}
+
+.imgButton {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.Buttons {
+
 }
