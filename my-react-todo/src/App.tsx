@@ -1,43 +1,44 @@
 import './App.css';
 import TodoList from './components/TodoList';
+import { Suspense } from 'react';
+import { CallAPI } from './API/DataRecuperation';
 
-export interface Task {
-  id: number;
-  text: string;
-  date: string;
-  description: string;
-  completed: boolean;
-}
+const tasksPromise = CallAPI()
 
 const App = () => {
-  const tasks: Task[] = [
-    { id: 1, text: "Tomate", date: "02/04/2026", description: "Rouge", completed: false },
-    { id: 2, text: "Banana", date: "27/04/2026", description: "Jaune", completed: true },
-    { id: 2, text: "Orange", date: "27/04/2026", description: "Orange", completed: true },
-  ];
 
   return (
     <main className="React-Todo">
+
+      {/* Input Informations */}
       <h1>TodoList React</h1>
       <section className='CSSBase' id='ErrorMSG'>
         <h3>Chamb requis manquant</h3>
-        <p>Le ( Nom ) de la tâche est obligatoire.</p>
+        <p>Le ( name ) de la tâche est obligatoire.</p>
       </section>
       <section className='CSSBase padding'>
         <div>
           <h4>Nouvelle Tâche</h4>
           <p>Titre</p>
-          <input className='CSSBase' type="text" placeholder='Titre de la Tâche . . .' />
+          <input className='CSSBase' type="text" placeholder='Task Title . . .' />
         </div>
         <button className='CSSBase' style={{justifyItems: 'right'}}>+ Crée la Tâche</button>
       </section>
 
+      {/* Tasks Display */}
       <section className='CSSBase padding' id='displayTasks'>
         <h4>Liste des Tâches</h4>
-        <TodoList tasks={tasks} />
+        <Suspense fallback="Loading Tasks . . .">
+          <TodoList tasksPromise={tasksPromise} />
+        </Suspense> 
+        
       </section>
     </main>
-  );
+  );  
 };
 
 export default App;
+
+
+
+// Partial == rends les proprietées optionelles et aussi 

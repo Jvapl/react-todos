@@ -1,23 +1,26 @@
-import type { Task } from "../App";
 import Trash from "../medias/Trash.png";
 import Edit from "../medias/edit.png";
+import type { Task } from "../API/DataRecuperation";
 
 interface TodoItemProps {
     todo: Task;
 }
 
+
 export default function TodoItem({ todo }: TodoItemProps) {
     return (
-        <div className="Task">
-            <div id="taskInformations">
-                <input type="checkbox" defaultChecked={todo.completed} />
+        <>
+                <div className="Task">
+                <div id="taskInformations">
+                <input type="checkbox" defaultChecked={todo.done} />
                 <div>
-                    <h3>{todo.text}</h3>
-                    <p>Date {todo.date}</p>
-                    <p>{todo.description}</p>
+                    <h3>{todo.title}</h3>
+                    <p>Date {todo.due_date}</p>
+                    <p>{todo.content}</p>
                 </div>
             </div>
 
+        {/* Tasks Buttons */}
             <div className="TaskButtons">
                 <button className="CSSBase Buttons" id="editButton">
                     <img className="imgButton" src={Edit} alt="edit logo"/>
@@ -26,6 +29,8 @@ export default function TodoItem({ todo }: TodoItemProps) {
                     <img className="imgButton" src={Trash} alt="Trash logo" />
                 </button>
             </div>
-        </div>
+        </div>       
+        </>
+        // Task Informations
     );
 }
