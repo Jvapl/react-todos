@@ -11,6 +11,10 @@ body {
   background-color: var(--PrimaryColorBackGround);
 }
 
+h1,p,h3,h2 {
+  margin: 0px;
+}
+
 p {
   color: #787878;
 }
@@ -60,6 +64,15 @@ p {
   justify-content: space-between;
 }
 
+/* --- New Task --- */
+
+#NewTaskHolder{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
 /* --- Buttons --- */
 
 .TaskButtons{
@@ -73,6 +86,28 @@ p {
   height: 1.5rem;
 }
 
-/* .Buttons {
+#addTaskButton {
+  padding: 0.5rem 1rem;
+}
 
-} */
+#buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* --- Inputs --- */
+
+#informations {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+div input {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+#description_Input {
+  padding-bottom: 9rem;  
+}
