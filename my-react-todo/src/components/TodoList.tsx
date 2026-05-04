@@ -7,7 +7,6 @@ interface TodoListProps {
 
 }
 
-
 export default function TodoList({ tasksPromise }: TodoListProps) {
     const tasks: Task[] = use(tasksPromise)
     if (tasks.length === 0)return <p>No tasks to complete.</p>
