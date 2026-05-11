@@ -49,7 +49,7 @@ p {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-#ErrorMSG p {
+.error-message p {
   color: #E21F1C;
 }
 

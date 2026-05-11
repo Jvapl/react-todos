@@ -1,4 +1,3 @@
-
 export type Task = {
   title: string;
   due_date?: string;
@@ -31,4 +30,16 @@ export const PostAPI = async (newTask: Task) => {
     body: JSON.stringify(newTask)
   })
     if (!response.ok)throw new Error("Error detected when creating task")
+}
+
+export const RemoveApi = async (id: number) => {
+  const response = await fetch(`${url}?id=eq.${id}`,{
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      }
+    })
+    if(!response.ok){
+      throw new Error("Couldn't delete the task")
+    }
 }

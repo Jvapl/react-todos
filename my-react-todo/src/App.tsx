@@ -1,7 +1,7 @@
 import './App.css';
 import TodoList from './components/TodoList';
 import { Suspense, useState } from 'react';
-import { CallAPI, PostAPI } from './API/DataRecuperation';
+import { CallAPI, PostAPI, RemoveApi } from './API/DataRecuperation';
 import { AddTask } from './components/AddTask';
 import type { Task } from './API/DataRecuperation';
 
@@ -20,9 +20,18 @@ const App = () => {
     setTasksPromise(CallAPI())
     
   }catch(error){
-    console.error('Impossible to create task: ', error);
+    console.error('Could not create task: ', error);
   }
 }
+
+  const handleDeleteTask = async (id: number) => {
+      try {
+      await RemoveApi(id)
+      setTasksPromise(CallAPI())
+    }catch(error){
+      console.error('Error supression: ',error)
+    }
+  }
 
   return (
     <main className="React-Todo">
@@ -32,7 +41,7 @@ const App = () => {
 
       <section className='CSSBase padding' id='NewTaskHolder'>
         <div id="informations">
-          <h2>Nouvelle Tâche</h2>
+          <h2>New Task</h2>
           <AddTask onAddTask={handleNewTask}></AddTask>
           {/* tout ce qui est input */}
         </div>
@@ -40,9 +49,9 @@ const App = () => {
 
       {/* Tasks Display */}
       <section className='CSSBase padding'>
-        <h4>Liste des Tâches</h4>
+        <h4>Tasks List</h4>
         <Suspense fallback="Loading Tasks . . .">
-          <TodoList tasksPromise={tasksPromise} />
+          <TodoList tasksPromise={tasksPromise} onDelete={handleDeleteTask} />
         </Suspense> 
       </section>
     </main>

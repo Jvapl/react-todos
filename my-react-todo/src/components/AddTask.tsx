@@ -40,8 +40,8 @@ export const AddTask = ({onAddTask}: AddTaskProps) => {
                 
                 <section
                     className={`CSSBase error-message ErrorMSG ${showError ? 'visible' : 'hidden'}`}> {/* si vrai classe visible si faux hidden */}
-                    <h3>Chamb requis manquant</h3>
-                    <p>Le titre de la tâche est obligatoire.</p>
+                    <h3>Something is Missing</h3>
+                    <p>The Task Title is needed.</p>
                 </section>
 
             <form id='NewTaskHolder' onSubmit={handleSubmit}>
