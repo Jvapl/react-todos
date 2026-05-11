@@ -33,7 +33,8 @@ export const PostAPI = async (newTask: Task) => {
 }
 
 export const RemoveApi = async (id: number) => {
-  const response = await fetch(`${url}?id=eq.${id}`,{
+  const dynamicURL = `${url}?id=eq.${id}`
+  const response = await fetch(dynamicURL,{
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
