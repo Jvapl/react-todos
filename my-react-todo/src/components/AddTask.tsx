@@ -12,7 +12,7 @@ export const AddTask = ({onAddTask}: AddTaskProps) => {
     const [description, setDescription] = useState("")
     const [showError, setShowError] = useState(false)
     
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (!title){
             setShowError(true)
