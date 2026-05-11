@@ -1,13 +1,14 @@
 import Trash from "../medias/Trash.png";
 import Edit from "../medias/edit.png";
-import type { TaskRead } from "../API/DataRecuperation";
+import {type TaskRead } from "../API/DataRecuperation";
 
 interface TodoItemProps {
     todo: TaskRead;
+    onDelete: (id: number) => void
 }
 
 
-export default function TodoItem({ todo }: TodoItemProps) {
+export default function TodoItem({ todo, onDelete }: TodoItemProps) {
     return (
         <>
             <div className="Task">
@@ -25,7 +26,8 @@ export default function TodoItem({ todo }: TodoItemProps) {
                     <button className="CSSBase Buttons" id="editButton">
                         <img className="imgButton" src={Edit} alt="edit logo"/>
                     </button>
-                    <button className="CSSBase Buttons" id="clearButton">
+                    <button onClick={() => {
+                        onDelete(todo.id)}} className="CSSBase Buttons" id="clearButton">
                         <img className="imgButton" src={Trash} alt="Trash logo" />
                     </button>
                 </div>
