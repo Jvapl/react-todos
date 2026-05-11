@@ -1,43 +1,49 @@
 import './App.css';
 import TodoList from './components/TodoList';
-import { Suspense } from 'react';
-import { CallAPI } from './API/DataRecuperation';
+import { Suspense, useState } from 'react';
+import { CallAPI, PostAPI } from './API/DataRecuperation';
+import { AddTask } from './components/AddTask';
+import type { Task } from './API/DataRecuperation';
 
-const tasksPromise = CallAPI()
 
 const App = () => {
+  
+  const [tasksPromise, setTasksPromise] = useState(CallAPI())
+
+  const handleNewTask = async (taskFromChild: Task) => {
+  console.log("New task reached from AddTask: ", taskFromChild)
+  
+  try {
+
+    await PostAPI(taskFromChild)
+    console.log('Task created')
+    setTasksPromise(CallAPI())
+    
+  }catch(error){
+    console.error('Impossible to create task: ', error);
+  }
+}
 
   return (
     <main className="React-Todo">
 
       {/* Input Informations */}
       <h1>TodoList React</h1>
-      <section className='CSSBase' id='ErrorMSG'>
-        <h3>Chamb requis manquant</h3>
-        <p>Le ( name ) de la tâche est obligatoire.</p>
-      </section>
+
       <section className='CSSBase padding' id='NewTaskHolder'>
         <div id="informations">
           <h2>Nouvelle Tâche</h2>
-          <p>Titre</p>
-          <input className='CSSBase' id="title_Input" type="text" placeholder='Task Title . . .' />
-          <p>Date</p>
-          <input className='CSSBase' id="date_Input" type="date"/>
-          <p>Description</p>
-          <input className='CSSBase' id="description_Input" type="text" placeholder='Task details . . .' />
-        </div>
-        <div id='buttonContainer'>
-          <button className='CSSBase' id='addTaskButton'>+ Crée la Tâche</button>
+          <AddTask onAddTask={handleNewTask}></AddTask>
+          {/* tout ce qui est input */}
         </div>
       </section>
 
       {/* Tasks Display */}
-      <section className='CSSBase padding' id='displayTasks'>
+      <section className='CSSBase padding'>
         <h4>Liste des Tâches</h4>
         <Suspense fallback="Loading Tasks . . .">
           <TodoList tasksPromise={tasksPromise} />
         </Suspense> 
-        
       </section>
     </main>
   );  

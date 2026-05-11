@@ -5,6 +5,7 @@
   --ColoBase: #D1C7BD;
   --ErrorColorBorder: #FF7A78;
   --ErrorBackGroundColor: #FFECEC;
+  --BaseGrayColor: #787878;
 }
 
 body {
@@ -16,7 +17,7 @@ h1,p,h3,h2 {
 }
 
 p {
-  color: #787878;
+  color: var(--BaseGrayColor);
 }
 
 .React-Todo {
@@ -40,18 +41,39 @@ p {
 
 /* --- ERROR MSG ---*/
 
-#ErrorMSG {
+.ErrorMSG {
   border: 0.1rem solid var(--ErrorColorBorder);
   background-color: var(--ErrorBackGroundColor);
   color: #E21F1C;
   padding: 1rem 3rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 #ErrorMSG p {
   color: #E21F1C;
 }
 
+.error-message.visible {
+  opacity: 1;
+  transform: translate(-10px);
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.error-message.hidden {
+  opacity: 0;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: all 0.3s ease-in-out
+}
+
 /* --- Task --- */
+
+#displayTasks{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
 #taskInformations{
   display: flex;
@@ -70,7 +92,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 /* --- Buttons --- */
@@ -84,10 +106,12 @@ p {
 .imgButton {
   width: 1.5rem;
   height: 1.5rem;
+  cursor: pointer;
 }
 
 #addTaskButton {
   padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
 #buttonContainer {
@@ -106,6 +130,7 @@ p {
 div input {
   padding: 1rem 2rem;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 #description_Input {

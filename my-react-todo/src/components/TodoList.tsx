@@ -1,17 +1,18 @@
 import TodoItem from "./TodoItem";
-import { type Task } from "../API/DataRecuperation";
+import type { TaskRead } from "../API/DataRecuperation";
 import { use } from "react";
+import '../App.css'
 
 interface TodoListProps {
-    tasksPromise: Promise<Task[]>;
+    tasksPromise: Promise<TaskRead[]>;
 
 }
 
 export default function TodoList({ tasksPromise }: TodoListProps) {
-    const tasks: Task[] = use(tasksPromise)
+    const tasks: TaskRead[] = use(tasksPromise)
     if (tasks.length === 0)return <p>No tasks to complete.</p>
     return (
-        <section>
+        <section id="displayTasks">
             {
             tasks.map((item) => (
                 <TodoItem key={item.id} todo={item} />
