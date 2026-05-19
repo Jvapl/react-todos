@@ -1,35 +1,71 @@
 import Trash from "../medias/Trash.png";
-import Edit from "../medias/edit.png";
-import {type TaskRead } from "../API/DataRecuperation";
+import { type TaskRead } from "../API/DataRecuperation";
+import { useState } from "react";
+import { EditableField } from "./EditField";
 
 interface TodoItemProps {
     todo: TaskRead;
     onDelete: (id: number) => void
+    onEdit: (id: number, updatedTask: Partial<TaskRead>) => void
 }
 
 
-export default function TodoItem({ todo, onDelete }: TodoItemProps) {
+export default function TodoItem({ todo, onDelete, onEdit }: TodoItemProps) {
+    const [editingField, setEditingField] = useState<"title" | "due_date" | "content" | null>(null)
     return (
         <>
             <div className="Task">
                 <div id="taskInformations">
                     <input type="checkbox" id="checkBoxTask" defaultChecked={false} />
-                    <div>
-                        <h3>{todo.title}</h3>
-                        <p>Date {todo.due_date}</p>
-                        <p>{todo.content}</p>
+                    <div className="TaskContent">
+                        <EditableField
+                            inputType="text"
+                            value={todo.title}
+                            placeholder="Task title"
+                            isEditing={editingField === "title"}
+                            onEditStart={() => setEditingField("title")}
+                            onSave={(newValue) => {
+                                setEditingField(null)
+                                const updatedTaskTitle = {
+                                    title: newValue 
+                                };
+                                onEdit(todo.id, updatedTaskTitle)
+                            }}
+                        />
+                        <EditableField
+                            inputType="date"
+                            value={todo.due_date}
+                            placeholder="Date"
+                            isEditing={editingField === "due_date"}
+                            onEditStart={() => setEditingField("due_date")}
+                            onSave={(newValue) => {
+                                setEditingField(null)
+                                const updatedTaskDate = {
+                                    due_date: newValue
+                                }
+                                onEdit(todo.id, updatedTaskDate)
+                            }}
+                        />
+                        <EditableField
+                            inputType="text"
+                            value={todo.content}
+                            placeholder="Content"
+                            isEditing={editingField === "content"}
+                            onEditStart={() => setEditingField("content")}
+                            onSave={(newValue) => {
+                                setEditingField(null)
+                                const updatedTaskContent = {
+                                    content: newValue
+                                }
+                                onEdit(todo.id, updatedTaskContent)
+                            }}
+                        />
                     </div>
                 </div>
 
         {/* Tasks Buttons */}
                 <div className="TaskButtons">
-                    <button className="CSSBase Buttons" id="editButton">
-                        <img className="imgButton" src={Edit} alt="edit logo"/>
-                    </button>
-                    <button onClick={() => {
-                        onDelete(todo.id)}} className="CSSBase Buttons" id="clearButton">
-                        <img className="imgButton" src={Trash} alt="Trash logo" />
-                    </button>
+                    <button className="CSSBase" onClick={() => onDelete(todo.id)}><img className="imgButton" src={Trash} alt="" /></button>
                 </div>
             </div>       
         </>

@@ -12,7 +12,8 @@ export const AddTask = ({onAddTask}: AddTaskProps) => {
     const [description, setDescription] = useState("")
     const [showError, setShowError] = useState(false)
     
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement> /* Je dit que l'evenement que j'ai clické
+        est un submit event de React */) => {
         e.preventDefault()
         if (!title){
             setShowError(true)
@@ -38,11 +39,11 @@ export const AddTask = ({onAddTask}: AddTaskProps) => {
     return (
         <>
                 
-                <section
-                    className={`CSSBase error-message ErrorMSG ${showError ? 'visible' : 'hidden'}`}> {/* si vrai classe visible si faux hidden */}
-                    <h3>Something is Missing</h3>
-                    <p>The Task Title is needed.</p>
-                </section>
+            <section
+                className={`CSSBase error-message ErrorMSG ${showError ? 'visible' : 'hidden'}`}> {/* si vrai classe visible si faux hidden */}
+                <h3>Something is Missing</h3>
+                <p>The Task Title is needed.</p>
+            </section>
 
             <form id='NewTaskHolder' onSubmit={handleSubmit}>
                 <p>Titre</p>
