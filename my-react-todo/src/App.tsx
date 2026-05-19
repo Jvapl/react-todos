@@ -1,23 +1,19 @@
-import './App.css';
-import TodoList from './components/TodoList';
-import { Suspense, useState } from 'react';
-import { CallAPI, PostAPI, RemoveApi } from './API/DataRecuperation';
-import { AddTask } from './components/AddTask';
-import type { Task } from './API/DataRecuperation';
-
+import { useState, Suspense } from "react";
+import { fetchTodosAPI, type Task, createTodosAPI, deleteTodosAPI, type TaskRead, updateTodosAPI } from "./API/DataRecuperation";
+import  { AddTask } from "./components/NewTask";
+import TodoList from "./components/TodoList";
 
 const App = () => {
   
-  const [tasksPromise, setTasksPromise] = useState(CallAPI())
-
+  const [tasksPromise, setTasksPromise] = useState(() => fetchTodosAPI())
   const handleNewTask = async (taskFromChild: Task) => {
   console.log("New task reached from AddTask: ", taskFromChild)
-  
+    
   try {
 
-    await PostAPI(taskFromChild)
+    await createTodosAPI(taskFromChild)
     console.log('Task created')
-    setTasksPromise(CallAPI())
+    setTasksPromise(fetchTodosAPI())
     
   }catch(error){
     console.error('Could not create task: ', error);
@@ -26,10 +22,19 @@ const App = () => {
 
   const handleDeleteTask = async (id: number) => {
       try {
-      await RemoveApi(id)
-      setTasksPromise(CallAPI())
+      await deleteTodosAPI(id)
+      setTasksPromise(fetchTodosAPI())
     }catch(error){
       console.error('Error supression: ',error)
+    }
+  }
+  
+  const handleEditTask = async (id: number, updatedTask: Partial<TaskRead>) => {
+    try {
+      await updateTodosAPI(id, updatedTask)
+      setTasksPromise(fetchTodosAPI())
+    }catch(error){
+      console.error('Error editing: ', error)
     }
   }
 
@@ -50,8 +55,9 @@ const App = () => {
       {/* Tasks Display */}
       <section className='CSSBase padding'>
         <h4>Tasks List</h4>
+
         <Suspense fallback="Loading Tasks . . .">
-          <TodoList tasksPromise={tasksPromise} onDelete={handleDeleteTask} />
+          <TodoList tasksPromise={tasksPromise} onDelete={handleDeleteTask} onEdit={handleEditTask}/>
         </Suspense> 
       </section>
     </main>
@@ -59,4 +65,3 @@ const App = () => {
 };
 
 export default App;
-

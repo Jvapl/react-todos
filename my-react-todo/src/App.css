@@ -78,12 +78,31 @@ p {
 #taskInformations{
   display: flex;
   justify-content: space-between;
+  min-width: 0;
   gap: 3.2rem;
+}
+
+#taskInformations div{
+  min-width: 0;
 }
 
 .Task {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+  align-items: center;
+}
+
+.Task span, .Task input { 
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.TaskContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 /* --- New Task --- */
@@ -100,7 +119,7 @@ p {
 .TaskButtons{
   display: flex;
   gap: 20px;
-
+  flex-shrink: 0;
 }
 
 .imgButton {
@@ -135,4 +154,9 @@ div input {
 
 #description_Input {
   padding-bottom: 9rem;  
+}
+
+.editInput {
+  height: 2rem;
+  padding: 0 1rem;
 }

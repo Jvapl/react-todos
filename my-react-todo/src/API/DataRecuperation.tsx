@@ -12,15 +12,15 @@ export type TaskRead = Task & {
   const url = "https://api.todos.in.jt-lab.ch/todos"
 
   // 
-export const CallAPI = async () => {
+export const fetchTodosAPI = async () => {
   // Request
-    const response = await fetch(url, { cache: 'no-store'}) // Ignore cache from the browser.
+    const response = await fetch(url, { cache: 'no-store'}) // Ignore caches from the browser.
     if (!response.ok)throw Error("Data wasn't found")
     const data: TaskRead[] = await response.json()
     return data
 }
 
-export const PostAPI = async (newTask: Task) => {
+export const createTodosAPI = async (newTask: Task) => {
   // 
   const response = await fetch(url, {
     method: 'POST',
@@ -32,7 +32,7 @@ export const PostAPI = async (newTask: Task) => {
     if (!response.ok)throw new Error("Error detected when creating task")
 }
 
-export const RemoveApi = async (id: number) => {
+export const deleteTodosAPI = async (id: number) => {
   const dynamicURL = `${url}?id=eq.${id}` as const
   const response = await fetch(dynamicURL,{
       method: 'DELETE',
@@ -43,4 +43,18 @@ export const RemoveApi = async (id: number) => {
     if(!response.ok){
       throw new Error("Couldn't delete the task")
     }
+}
+
+export const updateTodosAPI = async (id: number, updatedTask: Partial<TaskRead>) => {
+  const dynamicURL = `${url}?id=eq.${id}` as const
+  const response = await fetch(dynamicURL,{
+    method: 'PATCH',
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(updatedTask)
+  })
+  if(!response.ok){
+    throw new Error('Error when updating task')
+  }
 }
