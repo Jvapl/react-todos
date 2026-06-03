@@ -7,16 +7,41 @@ interface TodoListProps {
     tasksPromise: Promise<TaskRead[]>;
     onDelete: (id: number) => void
     onEdit: (id: number, updatedTask: Partial<TaskRead>) => void
+    filterType: string
+    sortType: string
 }
 
-export default function TodoList({ tasksPromise, onDelete, onEdit }: TodoListProps) {
+export default function TodoList({ tasksPromise, onDelete, onEdit, sortType, filterType }: TodoListProps) {
     const tasks: TaskRead[] = use(tasksPromise)
+
+    let filteredTasks = tasks.filter((task) => {
+        if (filterType === 'done') return task.is_done;
+        if (filterType === 'undone') return !task.is_done;
+        return true;
+    });
+
+    filteredTasks = filteredTasks.sort((a, b) => {
+        if (sortType === 'name') {
+            return a.title.localeCompare(b.title);// Compare des strings
+        }
+        if (sortType === 'date') {
+            if(!a.due_date && !b.due_date) return 0 // Pas de date = egales
+
+            if(!a.due_date) return 1 //passe devant
+            if(!b.due_date) return -1   //  est après
+            // Les task qui n'on pas de date vont en tout dernier
+            return new Date(a.due_date).getTime() - new Date(b.due_date).getTime();
+        }
+        return 0; // 
+    });
+
+    if (filteredTasks.length === 0) return <p>No tasks match your criteria.</p>;
 
     if (tasks.length === 0)return <p>No tasks to complete.</p>
     return (
         <section id="displayTasks">
             {
-            tasks.map((item) => (
+            filteredTasks.map((item) => (
                 <TodoItem key={item.id} todo={item} onDelete={onDelete} onEdit={onEdit} />
             ))}
         </section>

@@ -2,6 +2,7 @@ export type Task = {
   title: string;
   due_date?: string;
   content?: string;
+  is_done:boolean
 }
 
 export type TaskRead = Task & {

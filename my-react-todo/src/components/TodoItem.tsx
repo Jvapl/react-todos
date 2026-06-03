@@ -16,7 +16,10 @@ export default function TodoItem({ todo, onDelete, onEdit }: TodoItemProps) {
         <>
             <div className="Task">
                 <div id="taskInformations">
-                    <input type="checkbox" id="checkBoxTask" defaultChecked={false} />
+                    <input onChange={(e) => {
+                        const updatedTaskStatus = {is_done: e.target.checked}
+                        onEdit(todo.id, updatedTaskStatus)
+                        }} type="checkbox" className="checkBoxTask" defaultChecked={todo.is_done || false} />
                     <div className="TaskContent">
                         <EditableField
                             inputType="text"
@@ -47,7 +50,7 @@ export default function TodoItem({ todo, onDelete, onEdit }: TodoItemProps) {
                             }}
                         />
                         <EditableField
-                            inputType="text"
+                            inputType="textarea"
                             value={todo.content}
                             placeholder="Content"
                             isEditing={editingField === "content"}

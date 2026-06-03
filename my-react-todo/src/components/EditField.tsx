@@ -19,12 +19,16 @@ export const EditableField = ({value, isEditing, onEditStart, onSave, placeholde
 
     if(isTextArea){
         return(
-            <textarea name="" id=""
-                onBlur={() => onSave(inputValue)}>
+            <textarea
+                className="CSSBase"
+                autoFocus={true}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onBlur={() => onSave(inputValue)}
+                >
             </textarea>
         )
     }
-
 
 
     if(isEditing){
