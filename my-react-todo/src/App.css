@@ -13,7 +13,7 @@ body {
 }
 
 h1,p,h3,h2 {
-  margin: 0px;
+  margin: 0;
 }
 
 p {
@@ -104,6 +104,22 @@ p {
   flex-direction: column;
   gap: 0.6rem;
 }
+.sortDiv {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+}
+
+.sortAndDeleteALl {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
 
 /* --- New Task --- */
 
@@ -118,7 +134,7 @@ p {
 
 .TaskButtons{
   display: flex;
-  gap: 20px;
+  gap: 1.2rem;
   flex-shrink: 0;
 }
 
@@ -146,7 +162,7 @@ p {
   gap: 0.7rem;
 }
 
-div input {
+div input:not([type="radio"]):not([type="checkbox"]) {
   padding: 1rem 2rem;
   font-size: 1rem;
   cursor: pointer;
@@ -156,7 +172,43 @@ div input {
   padding-bottom: 9rem;  
 }
 
-.editInput {
-  height: 2rem;
-  padding: 0 1rem;
+/*Sorting Popover*/
+
+#popover-sort {
+  display: flex;
+  top: 100%;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  position: relative;
+  bottom: -200%;
+  gap: 10rem;
+}
+#popover-sort p {
+  margin-bottom: 0.8rem;
+}
+
+/*Popover Buttons*/
+#popoverBtnsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.popoverBtns {
+  padding: 0.12rem;
+}
+
+
+.popover-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-direction: row-reverse;
+}
+
+.filterDiv, .sortDivGroupe {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }

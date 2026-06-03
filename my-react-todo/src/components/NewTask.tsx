@@ -21,6 +21,7 @@ export const AddTask = ({onAddTask}: AddTaskProps) => {
         }
         const newTask:Task = {
             title: title,
+            is_done: false
         }
 
         if (date !== ""){
