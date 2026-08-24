@@ -2,7 +2,7 @@ export type Task = {
   title: string;
   due_date?: string;
   content?: string;
-  is_done:boolean
+  done:boolean
 }
 
 export type TaskRead = Task & {
@@ -16,21 +16,24 @@ export type TaskRead = Task & {
 export const fetchTodosAPI = async () => {
   // Request
     const response = await fetch(url, { cache: 'no-store'}) // Ignore caches from the browser.
-    if (!response.ok)throw Error("Data wasn't found")
-    const data: TaskRead[] = await response.json()
-    return data
-}
-
-export const createTodosAPI = async (newTask: Task) => {
-  // 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(newTask)
-  })
-    if (!response.ok)throw new Error("Error detected when creating task")
+    if (!response.ok) {
+      throw Error("Data wasn't found")}
+      const data: TaskRead[] = await response.json()
+      return data
+    }
+    
+    export const createTodosAPI = async (newTask: Task) => {
+      // 
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newTask)
+      })
+      if (!response.ok) {
+      console.log(newTask)
+      throw new Error("Error detected when creating task")}
 }
 
 export const deleteTodosAPI = async (id: number) => {

@@ -1,63 +1,29 @@
-import { useState, Suspense } from "react";
-import { fetchTodosAPI, type Task, createTodosAPI, deleteTodosAPI, type TaskRead, updateTodosAPI } from "./API/DataRecuperation";
+import { Suspense } from "react";
 import { AddTask } from "./components/NewTask";
 import TodoList from "./components/TodoList";
 import { SortingPopover } from "./components/SortingPopover";
 import { ErrorBanner } from "./components/ErrorBanner";
+import { useTodoStore } from "./store/todoStore";
 
 const App = () => {
-  const [apiError, setApiError] = useState<string | null>(null)
-  const [tasksPromise, setTasksPromise] = useState(() => fetchTodosAPI())
-  const [filterType, setFilterType] = useState("none")
-  const [sortType, setSortType] = useState("none")
-
-  const handleNewTask = async (taskFromChild: Task) => {
-    try {
-      setApiError(null)
-      await createTodosAPI(taskFromChild)
-      setTasksPromise(fetchTodosAPI())
-    } catch (error: unknown) {
-      if(error instanceof Error){} // instanceof système de verification d'heritage
-      if(error instanceof Error){
-        setApiError(error.message || "An error occurred while creating the task.")
-      }else{
-        setApiError("An unexpected error occurred.")
-      }
-    }
-  };
-
-  const handleDeleteTask = async (id: number) => {
-    try {
-      setApiError(null)
-      await deleteTodosAPI(id)
-      setTasksPromise(fetchTodosAPI())
-    } catch (error: unknown) {
-      if(error instanceof Error){
-        setApiError(error.message || "An error occurred while deleting the task.")
-      }
-      setApiError("An unexpected error occurred.")
-    }
-  };
-  
-  const handleEditTask = async (id: number, updatedTask: Partial<TaskRead>) => {
-    try {
-      setApiError(null)
-      await updateTodosAPI(id, updatedTask)
-      setTasksPromise(fetchTodosAPI())
-    } catch (error: unknown) {
-      if(error instanceof Error){
-        setApiError(error.message || "An error occured while updating the task.")
-      }
-      setApiError("An unexpected error occurred.")
-    }
-  }
+  const {
+    taskPromise,
+    apiError,
+    filterType,
+    sortType,
+    setFilter,
+    setSort,
+    setApiError,
+    deleteTask,
+    editTask
+  } = useTodoStore()
 
   return (
     <main className="React-Todo">
       {apiError && (
-        <ErrorBanner 
-          message={apiError} 
-          onDismiss={() => setApiError(null)} 
+        <ErrorBanner
+          message={apiError}
+          onDismiss={() => setApiError(null)}
         />
       )}
 
@@ -66,7 +32,7 @@ const App = () => {
       <section className='CSSBase padding' id='NewTaskHolder'>
         <div id="informations">
           <h2>New Task</h2>
-          <AddTask onAddTask={handleNewTask}></AddTask>
+          <AddTask />
         </div>
       </section>
 
@@ -75,26 +41,26 @@ const App = () => {
           <h4>Tasks List</h4>
           <div className="sortAndDeleteALl">
             <SortingPopover
-              onSortChange={setSortType}
-              onFilterChange={setFilterType}
+              onSortChange={setSort}
+              onFilterChange={setFilter}
               currentFilter={filterType}
               currentSort={sortType}
             />
-            <button className="CSSBase cursorPointer popoverBtns">Delete All</button>
+            <button className="CSSBase cursorPointer popoverBtnCouls">Delete All</button>
           </div>
         </div>
         <Suspense fallback="Loading Tasks . . .">
           <TodoList
-            tasksPromise={tasksPromise} 
-            onDelete={handleDeleteTask} 
-            onEdit={handleEditTask}
+            tasksPromise={taskPromise}
+            onDelete={deleteTask}
+            onEdit={editTask}
             filterType={filterType}
             sortType={sortType}
-            />
-        </Suspense> 
+          />
+        </Suspense>
       </section>
     </main>
-  );  
+  );
 };
 
 export default App;
