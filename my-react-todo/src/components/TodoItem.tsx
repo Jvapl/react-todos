@@ -17,9 +17,9 @@ export default function TodoItem({ todo, onDelete, onEdit }: TodoItemProps) {
             <div className="Task">
                 <div id="taskInformations">
                     <input onChange={(e) => {
-                        const updatedTaskStatus = {is_done: e.target.checked}
+                        const updatedTaskStatus = { done: e.target.checked }
                         onEdit(todo.id, updatedTaskStatus)
-                        }} type="checkbox" className="checkBoxTask" defaultChecked={todo.is_done || false} />
+                    }} type="checkbox" className="checkBoxTask" defaultChecked={todo.done || false} />
                     <div className="TaskContent">
                         <EditableField
                             inputType="text"
@@ -30,7 +30,7 @@ export default function TodoItem({ todo, onDelete, onEdit }: TodoItemProps) {
                             onSave={(newValue) => {
                                 setEditingField(null)
                                 const updatedTaskTitle = {
-                                    title: newValue 
+                                    title: newValue
                                 };
                                 onEdit(todo.id, updatedTaskTitle)
                             }}
@@ -66,12 +66,11 @@ export default function TodoItem({ todo, onDelete, onEdit }: TodoItemProps) {
                     </div>
                 </div>
 
-        {/* Tasks Buttons */}
+                {/* Tasks Buttons */}
                 <div className="TaskButtons">
                     <button className="CSSBase" onClick={() => onDelete(todo.id)}><img className="imgButton" src={Trash} alt="" /></button>
                 </div>
-            </div>       
+            </div>
         </>
-        // Task Informations
     );
 }
