@@ -1,45 +1,42 @@
 import { useState } from "react";
 import { type Task } from "../API/DataRecuperation";
+import { useTodoStore } from "../store/todoStore";
 
-
-interface AddTaskProps {
-    onAddTask: (tasks:Task) => void 
-}
-
-export const AddTask = ({onAddTask}: AddTaskProps) => {
+export const AddTask = () => {
+    const stateAddTask = useTodoStore((state) => state.addTask)
     const [title, setTitle] = useState("")
     const [date, setDate] = useState("")
     const [description, setDescription] = useState("")
     const [showError, setShowError] = useState(false)
-    
+
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement> /* Je dit que l'evenement que j'ai clické
         est un submit event de React */) => {
         e.preventDefault()
-        if (!title){
+        if (!title) {
             setShowError(true)
             return
         }
-        const newTask:Task = {
+        const newTask: Task = {
             title: title,
-            is_done: false
+            done: false
         }
 
-        if (date !== ""){
+        if (date !== "") {
             newTask.due_date = date
         }
-        if (description !== ""){
-            newTask.content  = description
+        if (description !== "") {
+            newTask.content = description
         }
-    onAddTask(newTask)
-    setTitle("")
-    setDate("")
-    setDescription("")
+        stateAddTask(newTask)
+        setTitle("")
+        setDate("")
+        setDescription("")
 
     }
 
     return (
         <>
-                
+
             <section
                 className={`CSSBase error-message ErrorMSG ${showError ? 'visible' : 'hidden'}`}> {/* si vrai classe visible si faux hidden */}
                 <h3>Something is Missing</h3>
@@ -55,7 +52,7 @@ export const AddTask = ({onAddTask}: AddTaskProps) => {
                 <p>Date</p>
                 <input value={date} onChange={(e) => setDate(e.target.value)} className="CSSBase" id="date_Input" type="date" />
                 <p>Description</p>
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="CSSBase" id="description_Input" placeholder="Task detail . . ."/>
+                <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="CSSBase" id="description_Input" placeholder="Task detail . . ." />
                 <div id="buttonContainer">
                     <button type="submit" className='CSSBase' id='addTaskButton'>+ New Task</button>
                 </div>
@@ -64,4 +61,4 @@ export const AddTask = ({onAddTask}: AddTaskProps) => {
     )
 }
 
- 
+

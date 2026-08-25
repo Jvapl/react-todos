@@ -15,8 +15,8 @@ export default function TodoList({ tasksPromise, onDelete, onEdit, sortType, fil
     const tasks: TaskRead[] = use(tasksPromise)
 
     let filteredTasks = tasks.filter((task) => {
-        if (filterType === 'done') return task.is_done;
-        if (filterType === 'undone') return !task.is_done;
+        if (filterType === 'done') return task.done;
+        if (filterType === 'undone') return !task.done;
         return true;
     });
 
