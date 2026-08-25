@@ -29,7 +29,6 @@ export const createTodosAPI = async (newTask: Task) => {
     body: JSON.stringify(newTask)
   })
   if (!response.ok) {
-    console.log(newTask)
     throw new Error("Error detected when creating task")
   }
 }
