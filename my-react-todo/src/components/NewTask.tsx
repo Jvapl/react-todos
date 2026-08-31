@@ -12,19 +12,22 @@ export const AddTask = () => {
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement> /* Je dit que l'evenement que j'ai clické
         est un submit event de React */) => {
         e.preventDefault()
-        if (!title) {
+        if (!title || !title.trim()) {
             setShowError(true)
             return
         }
+        const currentDate = new Date().toISOString().split('T')[0]
+        
         const newTask: Task = {
             title: title,
             done: false
         }
-
-        if (date !== "") {
+        if (date !== "" && date >= currentDate) {
             newTask.due_date = date
+        }else{
+            throw new Error("This date isn't valid")
         }
-        if (description !== "") {
+        if (description.trim() !== "") {
             newTask.content = description
         }
         stateAddTask(newTask)
@@ -36,7 +39,6 @@ export const AddTask = () => {
 
     return (
         <>
-
             <section
                 className={`CSSBase error-message ErrorMSG ${showError ? 'visible' : 'hidden'}`}> {/* si vrai classe visible si faux hidden */}
                 <h3>Something is Missing</h3>
@@ -61,4 +63,21 @@ export const AddTask = () => {
     )
 }
 
+// // // 1. Récupérer la valeur de l'input (ex: "2026-08-28")
+// const dateBrute = document.getElementById("monInputDate").value; 
+
+// if (dateBrute) {
+//     // 2. Convertir la chaîne en objet Date JavaScript
+//     const dateObj = new Date(dateBrute);
+
+//     // 3. Formater la date en français
+//     const dateLisible = dateObj.toLocaleDateString('fr-FR', {
+//         weekday: 'long', // "vendredi" (optionnel)
+//         year: 'numeric',  // "2026"
+//         month: 'long',    // "août"
+//         day: 'numeric'    // "28"
+//     });
+
+//     console.log(dateLisible); // Résultat : "vendredi 28 août 2026"
+// }
 

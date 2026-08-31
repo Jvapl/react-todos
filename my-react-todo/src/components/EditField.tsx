@@ -10,28 +10,27 @@ interface EditableFieldProps {
     isTextArea?: boolean
 }
 
-export const EditableField = ({value, isEditing, onEditStart, onSave, placeholder, inputType, isTextArea}: EditableFieldProps) => {
+export const EditableField = ({ value, isEditing, onEditStart, onSave, placeholder, inputType, isTextArea }: EditableFieldProps) => {
     const [inputValue, setInputValue] = useState(value || "")
-    
-    useEffect(() => { // Sycronise les valeurs quand j'edit
+
+    useEffect(() => { // Syncronise les valeurs quand j'edit
         setInputValue(value || "")
     }, [value, isEditing])
-
-    if(isTextArea){
-        return(
+    
+    if (isTextArea && isEditing) {
+        return (
             <textarea
-                className="CSSBase"
+                className="CSSBase editInput"
                 autoFocus={true}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onBlur={() => onSave(inputValue)}
-                >
+            >
             </textarea>
         )
     }
 
-
-    if(isEditing){
+    if (isEditing) {
         return (
             <input
                 type={inputType}
@@ -41,7 +40,7 @@ export const EditableField = ({value, isEditing, onEditStart, onSave, placeholde
                 onChange={(e) => setInputValue(e.target.value)}
                 onBlur={() => onSave(inputValue)}
                 onKeyDown={(e) => {
-                    if(e.key === "Enter"){
+                    if (e.key === "Enter") {
                         onSave(inputValue)
                     }
                 }}
@@ -49,5 +48,5 @@ export const EditableField = ({value, isEditing, onEditStart, onSave, placeholde
             />
         )
     }
-    return <span style={{cursor: "pointer"}} onClick={onEditStart}>{value || placeholder}</span>
+    return <span style={{ cursor: "pointer" }} onClick={onEditStart}>{value || placeholder}</span>
 }

@@ -4,7 +4,8 @@ import {
     fetchTodosAPI,
     createTodosAPI,
     deleteTodosAPI,
-    updateTodosAPI
+    updateTodosAPI,
+    deleteAllTodosAPI
 } from "../API/DataRecuperation";
 
 interface TodoState {
@@ -20,6 +21,7 @@ interface TodoState {
     setFilter: (f: string) => void;
     setSort: (s: string) => void;
     clearError: () => void;
+    deleteAll: () => Promise<void>;
 }
 
 export const useTodoStore = create<TodoState>((set) => ({
@@ -64,6 +66,18 @@ export const useTodoStore = create<TodoState>((set) => ({
             throw error;
         }
     },
+    deleteAll: async () => {
+        try {
+            set({ apiError: null });
+            await deleteAllTodosAPI()
+            set({ taskPromise: fetchTodosAPI() });
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : "An unexpected error occurred.";
+            set({ apiError: message });
+            throw error;
+        }
+    },
+
     setApiError: (error: string | null) => set({ apiError: error }),
     setFilter: (f: string) => set({ filterType: f }),
     setSort: (s: string) => set({ sortType: s }),

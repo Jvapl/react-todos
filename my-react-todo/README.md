@@ -1,36 +1,44 @@
-# Rsbuild project
+# React To-Do List
 
-## Setup
+A simple web application for task management (To-Do List) developed to consolidate my foundations in front-end development.
 
-Install the dependencies:
+## Installation and Execution
 
-```bash
-pnpm install
-```
+To test this project locally on your machine:
 
-## Get started
+1. Clone this repository:
+   ```bash
+   git clone [https://github.com/Jvapl/react-todos.git](https://github.com/Jvapl/react-todos.git)
+   ```
 
-Start the dev server, and the app will be available at [http://localhost:3000](http://localhost:3000).
+2. Install the dependencies:
+   ```bash
+   pnpm install
+   ```
 
-```bash
-pnpm run dev
-```
+3. Run the application:
+   ```bash
+   pnpm dev
+   ```
 
-Build the app for production:
+## Learning Objectives
 
-```bash
-pnpm run build
-```
+This project was undertaken with the aim of practicing specific concepts:
+* The tight integration of **TypeScript** into a **React** application.
+* Complex state management.
+* Asynchronous calls to a **REST API** for data management.
+* Clean component structuring with **HTML/CSS**.
+* Working with **Git** and **GitHub**.
 
-Preview the production build locally:
+## Features
 
-```bash
-pnpm run preview
-```
+* Add a new task to the list with a **title**, **date**, and **description**.
+* Toggle a task’s status (Done / Undone).
+* Permanently delete a task using the **Delete** button, or clear the list with **Delete all**.
+* Minimalist and responsive user interface.
+* Sort and filter tasks.
+* Inline editing: edit a task's title, date, or description simply by clicking on the field.
 
-## Learn more
+## Technologies Used
 
-To learn more about Rsbuild, check out the following resources:
-
-- [Rsbuild documentation](https://rsbuild.rs) - explore Rsbuild features and APIs.
-- [Rsbuild GitHub repository](https://github.com/web-infra-dev/rsbuild) - your feedback and contributions are welcome!
+* **Frontend:** React, TypeScript, HTML, CSS

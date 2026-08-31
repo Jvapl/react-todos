@@ -20,6 +20,10 @@ p {
   color: var(--BaseGrayColor);
 }
 
+textarea {
+  resize: none
+}
+
 .React-Todo {
   background-color: var(--TodoColorBackGround);
   margin: 3.3rem 10.3rem;
@@ -192,10 +196,11 @@ div input:not([type="radio"]):not([type="checkbox"]) {
   display: flex;
   justify-content: space-between;
   gap: 0.4rem;
+  justify-self: center;
 }
 
 .popoverBtns {
-  padding: 0.12rem;
+  padding: 0.50rem;
 }
 
 
