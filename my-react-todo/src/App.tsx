@@ -15,7 +15,8 @@ const App = () => {
     setSort,
     setApiError,
     deleteTask,
-    editTask
+    editTask,
+    deleteAll
   } = useTodoStore()
 
   return (
@@ -46,7 +47,7 @@ const App = () => {
               currentFilter={filterType}
               currentSort={sortType}
             />
-            <button className="CSSBase cursorPointer popoverBtnCouls">Delete All</button>
+            <button onClick={deleteAll} style={{padding: 8}} className="CSSBase cursorPointer">Delete All</button>
           </div>
         </div>
         <Suspense fallback="Loading Tasks . . .">

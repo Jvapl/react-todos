@@ -20,7 +20,7 @@ export default function TodoList({ tasksPromise, onDelete, onEdit, sortType, fil
         return true;
     });
 
-    filteredTasks = filteredTasks.sort((a, b) => {
+    const sorted = [...filteredTasks].sort((a, b) => {
         if (sortType === 'name') {
             return a.title.localeCompare(b.title);// Compare des strings
         }
@@ -35,13 +35,13 @@ export default function TodoList({ tasksPromise, onDelete, onEdit, sortType, fil
         return 0; // 
     });
 
-    if (filteredTasks.length === 0) return <p>No tasks match your criteria.</p>;
-
     if (tasks.length === 0)return <p>No tasks to complete.</p>
+    if (sorted.length === 0) return <p>No tasks match your criteria.</p>;
+
     return (
         <section id="displayTasks">
             {
-            filteredTasks.map((item) => (
+            sorted.map((item) => (
                 <TodoItem key={item.id} todo={item} onDelete={onDelete} onEdit={onEdit} />
             ))}
         </section>

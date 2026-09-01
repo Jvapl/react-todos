@@ -59,3 +59,15 @@ export const updateTodosAPI = async (id: number, updatedTask: Partial<TaskRead>)
     throw new Error('Error when updating task')
   }
 }
+
+export const deleteAllTodosAPI = async () => {
+  const response = await fetch(url, {
+  method: 'DELETE',
+  headers: {
+    'Content-type': 'application/json',
+  }
+  })
+  if(!response.ok){
+    throw new Error('Error when deleting all tasks')
+  }
+}
