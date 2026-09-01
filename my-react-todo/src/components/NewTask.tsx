@@ -20,7 +20,8 @@ export const AddTask = () => {
             title: title,
             done: false
         }
-        const currentDate = new Date().toISOString().split('T')[0]
+        const now = new Date()
+        const currentDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
         if (date !== ""){
             if (date >= currentDate){
                 newTask.due_date = date
