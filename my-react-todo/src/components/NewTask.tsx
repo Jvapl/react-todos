@@ -22,7 +22,7 @@ export const AddTask = () => {
         }
         const currentDate = new Date().toISOString().split('T')[0]
         if (date !== ""){
-            if (date < currentDate){
+            if (date >= currentDate){
                 newTask.due_date = date
             }
         }

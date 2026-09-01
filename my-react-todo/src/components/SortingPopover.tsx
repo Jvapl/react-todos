@@ -32,7 +32,7 @@ export const SortingPopover = ({onSortChange, onFilterChange, currentFilter, cur
                                     <input checked={currentFilter === 'undone'} id="filterUndone" name="filterOptions" onChange={() => onFilterChange('undone')} type="radio" />
                                     <label htmlFor="filterUndone">Undone</label>
                                     <input checked={currentFilter === 'all'} id="filterAll" name="filterOptions" onChange={() => onFilterChange('all')} type="radio" />
-                                    <label htmlFor="filterNone">all</label>
+                                    <label htmlFor="filterAll">all</label>
                                 </div>
                         </div>
                 </div>
