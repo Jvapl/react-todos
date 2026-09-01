@@ -16,16 +16,15 @@ export const AddTask = () => {
             setShowError(true)
             return
         }
-        const currentDate = new Date().toISOString().split('T')[0]
-        
         const newTask: Task = {
             title: title,
             done: false
         }
-        if (date !== "" && date >= currentDate) {
-            newTask.due_date = date
-        }else{
-            throw new Error("This date isn't valid")
+        const currentDate = new Date().toISOString().split('T')[0]
+        if (date !== ""){
+            if (date < currentDate){
+                newTask.due_date = date
+            }
         }
         if (description.trim() !== "") {
             newTask.content = description

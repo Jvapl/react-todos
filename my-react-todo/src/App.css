@@ -196,7 +196,6 @@ div input:not([type="radio"]):not([type="checkbox"]) {
   display: flex;
   justify-content: space-between;
   gap: 0.4rem;
-  justify-self: center;
 }
 
 .popoverBtns {

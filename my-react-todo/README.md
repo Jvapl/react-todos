@@ -8,17 +8,20 @@ To test this project locally on your machine:
 
 1. Clone this repository:
    ```bash
-   git clone [https://github.com/Jvapl/react-todos.git](https://github.com/Jvapl/react-todos.git)
+   git clone https://github.com/Jvapl/react-todos.git
    ```
 
 2. Install the dependencies:
    ```bash
    pnpm install
    ```
-
-3. Run the application:
+3. Code compilation
+    ```
+    pnpm build
+    ```
+4. Run the application:
    ```bash
-   pnpm dev
+   pnpm run
    ```
 
 ## Learning Objectives
@@ -41,4 +44,4 @@ This project was undertaken with the aim of practicing specific concepts:
 
 ## Technologies Used
 
-* **Frontend:** React, TypeScript, HTML, CSS
+* **Frontend:** React, TypeScript, HTML, CSS, Zustand
